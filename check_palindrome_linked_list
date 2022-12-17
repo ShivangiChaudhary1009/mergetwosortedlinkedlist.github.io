@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{  
+    int data;  
+    struct node *next;  
+};
+struct node *head, *tail = NULL;  
+int size = 0;  
+ 
+void addNode(int data) {  
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));  
+    newNode->data = data;  
+    newNode->next = NULL;  
+      
+    if(head == NULL) {  
+         
+        head = newNode;  
+        tail = newNode;  
+    }  
+    else {  
+       
+        tail->next = newNode;    
+        tail = newNode;  
+    }   
+    size++;  
+}
+struct node* reverseList(struct node *head){  
+    struct node* prev,*cur;
+    if(head!=NULL)
+    {
+    	prev=head;
+    	cur=head->next;
+    	head=head->next;
+    	prev->next=NULL;
+	while(head!=NULL)
+	{
+		head=head->next;
+		cur->next=prev;
+		prev=cur;
+		cur=head;
+	}
+	head=prev;
+}
+return head;
+}
+void check_palindrome()
+{
+	struct node*current=head;
+	int flag=1;
+	int mid=(size%2==0)?(size/2):((size+1)/2);
+	for(int i=1;i<mid;i++)
+	{
+		current=current->next;
+	}
+	struct node*rev=reverseList(current->next);
+	while(head!=NULL && rev!=NULL){
+		if(head->data!=rev->data)
+		{
+			flag=0;
+			break;
+		}
+		head=head->next;
+		rev=rev->next;
+	}
+	if(flag)
+	printf("PALINDROME\n");
+	else
+	printf("NOT PALINDROME\n");
+}
+void display()
+{
+	struct node*current=head;
+	if(head==NULL){
+	printf("empty");
+	return;
+    }
+   printf("nodes are");
+   while(current!=NULL)
+   {
+   	printf("%d",current->data);
+   	current=current->next;
+   }
+   printf("\n");
+}
+int main()
+{
+	addNode(1);
+	addNode(2);
+	addNode(3);
+	addNode(2);
+	addNode(1);
+	display();
+	check_palindrome();
+	return 0;
+}
