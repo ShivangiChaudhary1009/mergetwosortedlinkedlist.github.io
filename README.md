@@ -1,1 +1,1 @@
-# mergetwosortedlinkedlist.github.io
+singly linked list
